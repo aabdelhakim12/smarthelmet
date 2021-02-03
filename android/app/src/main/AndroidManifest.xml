@@ -10,7 +10,7 @@
         android:label="Smart Helmet"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-                   android:value="AIzaSyDqQADsEBgBUctZYXWwygPa6hR13iEKSE0"/>
+                   android:value="AIzaSyCQO-MYrUm6ZC0xzY-Q8rOV4avqH4DG3zo"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -17,9 +17,8 @@ class WelcomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: size.height * 0.08),
+                SizedBox(height: size.height * 0.16),
                 Container(
-                  padding: EdgeInsets.all(5),
                   child: Text(
                     "welcome to smart helmet app",
                     style: TextStyle(
@@ -29,33 +28,26 @@ class WelcomeScreen extends StatelessWidget {
                         color: Theme.of(context).primaryColor),
                   ),
                 ),
-                Padding(padding: EdgeInsets.all(5)),
                 new Image.asset(
                   'assets/images/004.png',
-                  height: size.height * 0.6,
+                  height: (size.height * 0.52) - 3,
                   width: size.width * 0.85,
                 ),
-                SizedBox(height: size.height * 0.05),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(SignInScreen.routeName);
-                  },
-                  child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: Text('continue',
-                          style: TextStyle(
-                            fontSize: 22,
-                            color: Colors.white,
-                          ))),
-                ),
+                SizedBox(height: size.height * 0.025),
+                FlatButton(
+                    color: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(SignInScreen.routeName);
+                    },
+                    child: Text('continue',
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ))),
               ],
             ),
           ),

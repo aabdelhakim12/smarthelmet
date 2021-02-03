@@ -64,71 +64,69 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Stack(
-        children: [
-          FirebaseAnimatedList(
-              shrinkWrap: true,
-              query: ref,
-              itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                  Animation<double> animation, int index) {
-                double _latitude = snapshot.value['latitude']['val'];
-                double _longitude = snapshot.value['longitude']['val'];
-                lat = _latitude;
-                long = _longitude;
-                markers.add(Marker(
-                  markerId: MarkerId('0'),
-                  position: LatLng(lat, long),
-                  infoWindow: InfoWindow(title: 'Worker location'),
-                  icon: custom,
-                ));
-                _circles.add(
-                  Circle(
-                      circleId: CircleId("0"),
-                      center: LatLng(lat, long),
-                      radius: 10,
-                      strokeWidth: 2,
-                      fillColor: Color.fromRGBO(102, 51, 153, .5)),
-                );
-                return Container();
-              }),
-          GoogleMap(
-            mapType: MapType.satellite,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(0, 0),
-            ),
-            circles: _circles,
-            onMapCreated: onMapCreated,
-            markers: markers,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: true,
-            zoomGesturesEnabled: true,
-            zoomControlsEnabled: true,
+      body: Stack(children: [
+        FirebaseAnimatedList(
+            shrinkWrap: true,
+            query: ref,
+            itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                Animation<double> animation, int index) {
+              double _latitude = snapshot.value['latitude']['val'];
+              double _longitude = snapshot.value['longitude']['val'];
+              lat = _latitude;
+              long = _longitude;
+              markers.add(Marker(
+                markerId: MarkerId('0'),
+                position: LatLng(lat, long),
+                infoWindow: InfoWindow(title: 'Worker location'),
+                icon: custom,
+              ));
+              _circles.add(
+                Circle(
+                    circleId: CircleId("0"),
+                    center: LatLng(lat, long),
+                    radius: 10,
+                    strokeWidth: 2,
+                    fillColor: Color.fromRGBO(0, 51, 51, .6)),
+              );
+              return Container();
+            }),
+        GoogleMap(
+          mapType: MapType.satellite,
+          initialCameraPosition: CameraPosition(
+            target: LatLng(0, 0),
           ),
-          Positioned(
-            left: 5,
-            bottom: 0,
-            child: FlatButton(
-              color: Theme.of(context).primaryColor,
-              child: Text(
-                'view worker location',
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                setState(() {
-                  mapController.animateCamera(
-                    CameraUpdate.newCameraPosition(
-                      CameraPosition(
-                        target: LatLng(lat, long),
-                        zoom: 20.0,
-                      ),
-                    ),
-                  );
-                });
-              },
+          circles: _circles,
+          onMapCreated: onMapCreated,
+          markers: markers,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+          zoomGesturesEnabled: true,
+          zoomControlsEnabled: true,
+        ),
+        Positioned(
+          left: 5,
+          bottom: 0,
+          child: FlatButton(
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              'view worker location',
+              style: TextStyle(color: Colors.white),
             ),
-          )
-        ],
-      ),
+            onPressed: () {
+              setState(() {
+                mapController.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(
+                      target: LatLng(lat, long),
+                      zoom: 20.0,
+                    ),
+                  ),
+                );
+              });
+            },
+          ),
+        )
+      ]),
     );
   }
 }

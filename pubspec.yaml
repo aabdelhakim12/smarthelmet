@@ -32,7 +32,7 @@ dev_dependencies:
   cloud_firestore: ^0.14.4
   firebase_storage: ^5.2.0 
   firebase_database: ^4.4.0
-  google_maps_flutter: ^1.0.6
+  google_maps_flutter: ^1.1.1
   location: ^3.1.0
   geolocation: ^1.1.2
   geolocator: ^6.1.13
@@ -87,6 +87,8 @@ flutter:
     - assets/images/Background03.png
     - assets/images/Background04.png
     - assets/images/marker.png
+    - assets/images/helmet.png
+    - assets/images/nothelmet.png
     - assets/audio/alarm.mp3
     - assets/audio/alarm01.mp3
   # fonts:

@@ -1,4 +1,5 @@
 import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -59,7 +60,7 @@ class _LocationState extends State<Location> {
               center: LatLng(lat, long),
               radius: 10,
               strokeWidth: 2,
-              fillColor: Color.fromRGBO(102, 51, 153, .5)),
+              fillColor: Color.fromRGBO(0, 51, 51, .6)),
         );
       });
     }).catchError((e) {

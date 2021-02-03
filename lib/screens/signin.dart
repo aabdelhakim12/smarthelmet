@@ -74,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(children: <Widget>[
                   Padding(padding: EdgeInsets.all(5)),
                   Container(
-                    padding: EdgeInsets.only(top: size.height * 0.05),
+                    padding: EdgeInsets.only(top: (size.height * 0.07) + 10),
                     child: Text(
                       'SMART HELMET',
                       style: TextStyle(
@@ -84,7 +84,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.only(top: 6),
                   ),
                   new Image.asset(
                     'assets/images/001.png',
@@ -147,7 +147,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 50),
                   ),
-                  RaisedButton(
+                  FlatButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     onPressed: signIn,
                     child: Text(
                       'sign in',

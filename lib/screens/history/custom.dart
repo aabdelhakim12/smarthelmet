@@ -29,6 +29,7 @@ class _CustomDatabaseState extends State<CustomDatabase> {
             children: [
               Center(
                 child: Container(
+                  margin: EdgeInsets.all(10),
                   width: size.width,
                   height: size.height,
                   child: Column(
@@ -41,50 +42,103 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                               DataSnapshot snapshot,
                               Animation<double> animation,
                               int index) {
-                            String temperature =
+                            var temperature =
                                 snapshot.value['Temperature']['val'];
                             bool _isthreat = snapshot.value['isthreat']['val'];
                             _isthreat ? playaudio() : puseaudio();
+                            bool _iswearinghelmet =
+                                snapshot.value['iswearinghelmet']['val'];
+                            !_iswearinghelmet ? playaudio() : puseaudio();
                             double latitude = snapshot.value['latitude']['val'];
                             double longitude =
                                 snapshot.value['longitude']['val'];
 
                             return Stack(children: [
-                              Column(children: [
-                                ListTile(
-                                  leading: _isthreat
-                                      ? IconButton(
-                                          icon: Icon(
-                                            Icons.snooze,
-                                            color: _isthreat
-                                                ? Colors.red[800]
-                                                : null,
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                color: Colors.yellowAccent[100],
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'worker temperature : $temperature ˚C',
+                                            style: TextStyle(
+                                              fontSize: 23,
+                                              color: _isthreat
+                                                  ? Colors.red[800]
+                                                  : null,
+                                            ),
                                           ),
-                                          onPressed: () {
-                                            snooze();
-                                          })
-                                      : null,
-                                  trailing: IconButton(
-                                      icon: Icon(
-                                        Icons.location_on,
-                                        color:
-                                            _isthreat ? Colors.red[800] : null,
+                                          GestureDetector(
+                                            onTap: () {
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (_) =>
+                                              //             GoogleMapPage(
+                                              //               lat: latitude,
+                                              //               long: longitude,
+                                              //             )));
+                                              Navigator.of(context).pushNamed(
+                                                  LocationScreen.routeName);
+                                            },
+                                            child: Icon(
+                                              Icons.location_on,
+                                              color: _isthreat
+                                                  ? Colors.red[800]
+                                                  : null,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      onPressed: () {
-                                        Navigator.of(context).pushNamed(
-                                            LocationScreen.routeName);
-                                      }),
-                                  title: Text(
-                                    'worker temperature : $temperature ˚C',
-                                    style: TextStyle(
-                                      fontSize: 21,
-                                      color: _isthreat ? Colors.red[800] : null,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                      'latitude: $latitude , longitude: $longitude'),
-                                ),
-                              ]),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'latitude:$latitude ,longitude:$longitude',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: _isthreat
+                                                  ? Colors.red[800]
+                                                  : Colors.grey[700],
+                                            ),
+                                          ),
+                                          _iswearinghelmet
+                                              ? Image.asset(
+                                                  'assets/images/nothelmet.png',
+                                                  height: 35,
+                                                  width: 35,
+                                                )
+                                              : Image.asset(
+                                                  'assets/images/helmet.png',
+                                                  height: 40,
+                                                  width: 40,
+                                                  color: Colors.red[800],
+                                                ),
+                                          !_iswearinghelmet || _isthreat
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    snooze();
+                                                  },
+                                                  child: Icon(
+                                                    Icons.snooze,
+                                                    color: !_iswearinghelmet ||
+                                                            _isthreat
+                                                        ? Colors.red[800]
+                                                        : null,
+                                                  ),
+                                                )
+                                              : SizedBox(),
+                                        ],
+                                      )
+                                    ]),
+                              ),
                             ]);
                           },
                         ),
@@ -108,7 +162,6 @@ class _CustomDatabaseState extends State<CustomDatabase> {
 
   void puseaudio() async {
     assetsAudioPlayer.stop();
-    print('stooop');
   }
 
   @override
