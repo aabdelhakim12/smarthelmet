@@ -18,8 +18,8 @@ class _LocationState extends State<Location> {
   var circles = HashSet<Circle>();
 
   BitmapDescriptor custom;
-  double lat;
-  double long;
+  var lat;
+  var long;
   CameraPosition _initialLocation = CameraPosition(target: LatLng(0.0, 0.0));
   GoogleMapController mapController;
   Position _currentPosition;
@@ -92,8 +92,8 @@ class _LocationState extends State<Location> {
             query: ref,
             itemBuilder: (BuildContext context, DataSnapshot snapshot,
                 Animation<double> animation, int index) {
-              double _latitude = snapshot.value['latitude']['val'];
-              double _longitude = snapshot.value['longitude']['val'];
+              var _latitude = snapshot.value['latitude']['val'];
+              var _longitude = snapshot.value['longitude']['val'];
               lat = _latitude;
               long = _longitude;
               return Container();

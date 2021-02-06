@@ -19,8 +19,8 @@ class _LocationScreenState extends State<LocationScreen> {
   GoogleMapController mapController;
   final referenceDatabase = FirebaseDatabase.instance;
   BitmapDescriptor custom;
-  double lat;
-  double long;
+  var lat;
+  var long;
 
   void onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -70,8 +70,8 @@ class _LocationScreenState extends State<LocationScreen> {
             query: ref,
             itemBuilder: (BuildContext context, DataSnapshot snapshot,
                 Animation<double> animation, int index) {
-              double _latitude = snapshot.value['latitude']['val'];
-              double _longitude = snapshot.value['longitude']['val'];
+              var _latitude = snapshot.value['latitude']['val'];
+              var _longitude = snapshot.value['longitude']['val'];
               lat = _latitude;
               long = _longitude;
               markers.add(Marker(

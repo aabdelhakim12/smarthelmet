@@ -22,6 +22,7 @@ class _CustomDatabaseState extends State<CustomDatabase> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final ref = referenceDatabase.reference();
+    var temp;
     return Scaffold(
       body: BackgroundHis(
         child: SingleChildScrollView(
@@ -44,14 +45,18 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                               int index) {
                             var temperature =
                                 snapshot.value['Temperature']['val'];
+                            if (temperature >= 32 && temperature <= 37) {
+                              temp = 37;
+                            } else {
+                              temp = temperature;
+                            }
                             bool _isthreat = snapshot.value['isthreat']['val'];
                             _isthreat ? playaudio() : puseaudio();
                             bool _iswearinghelmet =
                                 snapshot.value['iswearinghelmet']['val'];
                             !_iswearinghelmet ? playaudio() : puseaudio();
-                            double latitude = snapshot.value['latitude']['val'];
-                            double longitude =
-                                snapshot.value['longitude']['val'];
+                            var latitude = snapshot.value['latitude']['val'];
+                            var longitude = snapshot.value['longitude']['val'];
 
                             return Stack(children: [
                               Container(
@@ -66,7 +71,9 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'worker temperature : $temperature ˚C',
+                                            _iswearinghelmet
+                                                ? ' worker temperature : $temp ˚C'
+                                                : "worker isn't wearing helmet",
                                             style: TextStyle(
                                               fontSize: 23,
                                               color: _isthreat
