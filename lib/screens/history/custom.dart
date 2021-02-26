@@ -76,9 +76,10 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                                 : "worker isn't wearing helmet",
                                             style: TextStyle(
                                               fontSize: 23,
-                                              color: _isthreat
-                                                  ? Colors.red[800]
-                                                  : null,
+                                              color:
+                                                  _isthreat || !_iswearinghelmet
+                                                      ? Colors.red[800]
+                                                      : null,
                                             ),
                                           ),
                                           GestureDetector(
@@ -111,9 +112,10 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                             'latitude:$latitude ,longitude:$longitude',
                                             style: TextStyle(
                                               fontSize: 15,
-                                              color: _isthreat
-                                                  ? Colors.red[800]
-                                                  : Colors.grey[700],
+                                              color:
+                                                  _isthreat || !_iswearinghelmet
+                                                      ? Colors.red[800]
+                                                      : Colors.grey[700],
                                             ),
                                           ),
                                           _iswearinghelmet
