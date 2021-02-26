@@ -97,9 +97,10 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                             },
                                             child: Icon(
                                               Icons.location_on,
-                                              color: _isthreat
-                                                  ? Colors.red[800]
-                                                  : null,
+                                              color:
+                                                  _isthreat || !_iswearinghelmet
+                                                      ? Colors.red[800]
+                                                      : null,
                                             ),
                                           ),
                                         ],
