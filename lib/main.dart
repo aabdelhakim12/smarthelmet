@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trialapp/screens/location.dart';
 import 'package:trialapp/screens/location_screen.dart';
-import 'screens/mainScreen.dart';
+import 'screens/history/custom.dart';
 import 'screens/signin.dart';
 import 'screens/welcomescreen/welcomeScreen.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       routes: {
         LocationScreen.routeName: (ctx) => LocationScreen(),
         SignInScreen.routeName: (ctx) => SignInScreen(),
-        MainScreen.routeName: (ctx) => MainScreen(),
+        CustomDatabase.routeName: (ctx) => CustomDatabase(),
+        Location.routeName: (ctx) => Location(),
       },
     );
   }

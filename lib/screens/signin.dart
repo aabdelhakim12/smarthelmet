@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'mainScreen.dart';
+import 'history/custom.dart';
+// import 'mainScreen.dart';
 import 'welcomescreen/background_welcome.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _SignInScreenState extends State<SignInScreen> {
     "admin": 'admin',
     "0000": '0000',
     "1": "1",
+    "uvs2021": "uvs2021",
   };
 
   void signIn() {
@@ -27,7 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
           orElse: () => null);
       print(checkpassword);
       if (checkpassword == passwordController.text) {
-        Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+        Navigator.of(context).pushReplacementNamed(CustomDatabase.routeName);
       } else {
         showDialog(
             context: context,

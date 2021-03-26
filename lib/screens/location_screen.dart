@@ -6,8 +6,8 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 class LocationScreen extends StatefulWidget {
   static const routeName = '/loc';
-
-  LocationScreen({Key key}) : super(key: key);
+  final double lat, long;
+  LocationScreen({this.lat, this.long});
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
@@ -19,8 +19,6 @@ class _LocationScreenState extends State<LocationScreen> {
   GoogleMapController mapController;
   final referenceDatabase = FirebaseDatabase.instance;
   BitmapDescriptor custom;
-  var lat;
-  var long;
 
   void onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -28,7 +26,7 @@ class _LocationScreenState extends State<LocationScreen> {
       mapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-            target: LatLng(lat, long),
+            target: LatLng(widget.lat, widget.long),
             zoom: 20.0,
           ),
         ),
@@ -66,24 +64,19 @@ class _LocationScreenState extends State<LocationScreen> {
       ),
       body: Stack(children: [
         FirebaseAnimatedList(
-            shrinkWrap: true,
             query: ref,
             itemBuilder: (BuildContext context, DataSnapshot snapshot,
                 Animation<double> animation, int index) {
-              var _latitude = snapshot.value['latitude']['val'];
-              var _longitude = snapshot.value['longitude']['val'];
-              lat = _latitude;
-              long = _longitude;
               markers.add(Marker(
                 markerId: MarkerId('0'),
-                position: LatLng(lat, long),
+                position: LatLng(widget.lat, widget.long),
                 infoWindow: InfoWindow(title: 'Worker location'),
                 icon: custom,
               ));
               _circles.add(
                 Circle(
                     circleId: CircleId("0"),
-                    center: LatLng(lat, long),
+                    center: LatLng(widget.lat, widget.long),
                     radius: 10,
                     strokeWidth: 2,
                     fillColor: Color.fromRGBO(0, 51, 51, .6)),
@@ -93,7 +86,7 @@ class _LocationScreenState extends State<LocationScreen> {
         GoogleMap(
           mapType: MapType.satellite,
           initialCameraPosition: CameraPosition(
-            target: LatLng(0, 0),
+            target: LatLng(widget.lat, widget.long),
           ),
           circles: _circles,
           onMapCreated: onMapCreated,
@@ -117,7 +110,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 mapController.animateCamera(
                   CameraUpdate.newCameraPosition(
                     CameraPosition(
-                      target: LatLng(lat, long),
+                      target: LatLng(widget.lat, widget.long),
                       zoom: 20.0,
                     ),
                   ),

@@ -6,7 +6,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import '../drawer.dart';
+
 class Location extends StatefulWidget {
+  static const routeName = '/loca';
   Location({Key key}) : super(key: key);
   @override
   _LocationState createState() => _LocationState();
@@ -85,54 +88,58 @@ class _LocationState extends State<Location> {
     final ref = referenceDatabase.reference();
 
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Map'),
+        ),
+        drawer: DrawerS(),
         body: Stack(
-      children: [
-        FirebaseAnimatedList(
-            shrinkWrap: true,
-            query: ref,
-            itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                Animation<double> animation, int index) {
-              var _latitude = snapshot.value['latitude']['val'];
-              var _longitude = snapshot.value['longitude']['val'];
-              lat = _latitude;
-              long = _longitude;
-              return Container();
-            }),
-        GoogleMap(
-          initialCameraPosition: _initialLocation,
-          markers: markers,
-          circles: circles,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: true,
-          mapType: MapType.satellite,
-          zoomGesturesEnabled: true,
-          zoomControlsEnabled: true,
-          onMapCreated: (GoogleMapController controller) {
-            mapController = controller;
-          },
-        ),
-        Positioned(
-          bottom: 0,
-          left: 5,
-          child: FlatButton(
-            color: Theme.of(context).primaryColor,
-            child: Text(
-              'view worker location',
-              style: TextStyle(color: Colors.white),
+          children: [
+            FirebaseAnimatedList(
+                shrinkWrap: true,
+                query: ref,
+                itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                    Animation<double> animation, int index) {
+                  var _latitude = snapshot.value['latitude']['val'];
+                  var _longitude = snapshot.value['longitude']['val'];
+                  lat = _latitude;
+                  long = _longitude;
+                  return Container();
+                }),
+            GoogleMap(
+              initialCameraPosition: _initialLocation,
+              markers: markers,
+              circles: circles,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+              mapType: MapType.satellite,
+              zoomGesturesEnabled: true,
+              zoomControlsEnabled: true,
+              onMapCreated: (GoogleMapController controller) {
+                mapController = controller;
+              },
             ),
-            onPressed: () {
-              mapController.animateCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(
-                    target: LatLng(lat, long),
-                    zoom: 20.0,
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    ));
+            // Positioned(
+            //   bottom: 0,
+            //   left: 5,
+            //   child: FlatButton(
+            //     color: Theme.of(context).primaryColor,
+            //     child: Text(
+            //       'view worker location',
+            //       style: TextStyle(color: Colors.white),
+            //     ),
+            //     onPressed: () {
+            //       mapController.animateCamera(
+            //         CameraUpdate.newCameraPosition(
+            //           CameraPosition(
+            //             target: LatLng(lat, long),
+            //             zoom: 20.0,
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
+          ],
+        ));
   }
 }

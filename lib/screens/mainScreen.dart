@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                 text: 'Temperature detection',
               ),
               Tab(
-                // icon: Icon(Icons.location_on),
+                icon: Icon(Icons.location_on),
                 text: 'location',
               ),
             ],

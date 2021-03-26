@@ -3,11 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:trialapp/screens/location_screen.dart';
+import '../../drawer.dart';
 import 'background_his.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'dart:async';
 
 class CustomDatabase extends StatefulWidget {
+  static const routeName = '/firebase';
   CustomDatabase({this.app});
   final FirebaseApp app;
 
@@ -24,6 +26,17 @@ class _CustomDatabaseState extends State<CustomDatabase> {
     final ref = referenceDatabase.reference();
     var temp;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Smart helmet',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 45,
+            fontFamily: 'Signatra',
+          ),
+        ),
+      ),
+      drawer: DrawerS(),
       body: BackgroundHis(
         child: SingleChildScrollView(
           child: Column(
@@ -53,7 +66,7 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                             bool _isthreat = snapshot.value['isthreat']['val'];
                             _isthreat ? playaudio() : puseaudio();
                             bool _iswearinghelmet =
-                                snapshot.value['iswearinghelmet']['val'];
+                                !snapshot.value['iswearinghelmet']['val'];
                             !_iswearinghelmet ? playaudio() : puseaudio();
                             var latitude = snapshot.value['latitude']['val'];
                             var longitude = snapshot.value['longitude']['val'];
@@ -75,7 +88,7 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                                 ? ' worker temperature : $temp ˚C'
                                                 : "worker isn't wearing helmet",
                                             style: TextStyle(
-                                              fontSize: 23,
+                                              fontSize: 21,
                                               color:
                                                   _isthreat || !_iswearinghelmet
                                                       ? Colors.red[800]
@@ -84,16 +97,14 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (_) =>
-                                              //             GoogleMapPage(
-                                              //               lat: latitude,
-                                              //               long: longitude,
-                                              //             )));
-                                              Navigator.of(context).pushNamed(
-                                                  LocationScreen.routeName);
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          LocationScreen(
+                                                            lat: latitude,
+                                                            long: longitude,
+                                                          )));
                                             },
                                             child: Icon(
                                               Icons.location_on,
