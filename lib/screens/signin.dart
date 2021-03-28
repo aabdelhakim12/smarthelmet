@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'history/custom.dart';
-// import 'mainScreen.dart';
 import 'welcomescreen/background_welcome.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -27,7 +26,6 @@ class _SignInScreenState extends State<SignInScreen> {
       var checkpassword = users.keys.firstWhere(
           (k) => users[k] == emailController.text,
           orElse: () => null);
-      print(checkpassword);
       if (checkpassword == passwordController.text) {
         Navigator.of(context).pushReplacementNamed(CustomDatabase.routeName);
       } else {

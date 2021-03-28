@@ -58,12 +58,12 @@ class _CustomDatabaseState extends State<CustomDatabase> {
                               int index) {
                             var temperature =
                                 snapshot.value['Temperature']['val'];
-                            if (temperature >= 32 && temperature <= 37) {
-                              temp = 37;
-                            } else {
-                              temp = temperature;
-                            }
-                            bool _isthreat = snapshot.value['isthreat']['val'];
+
+                            temp = temperature + 7;
+                            bool _isthreat;
+                            temp > 37 || temp < 32
+                                ? _isthreat = true
+                                : _isthreat = false;
                             _isthreat ? playaudio() : puseaudio();
                             bool _iswearinghelmet =
                                 !snapshot.value['iswearinghelmet']['val'];
